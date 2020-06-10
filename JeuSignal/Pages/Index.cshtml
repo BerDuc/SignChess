@@ -1,0 +1,54 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="Section">
+    <div class="container">
+        <div id="espace_joueur">
+            <h2 id="nom_joueur"></h2>
+            <form id="form_joueur">
+                <input type="text" id="txt_nom_joueur" placeholder="votre nom" />
+                <input type="button" id="btnUser" value="Nom joueur" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="section">
+    <div class="container">
+        <div id="monDamier" class="zone_jeu">
+
+        </div>
+    </div>
+</div>
+
+<br />
+<!-- Un espace pour créer des parties -->
+<div>
+    <form id="nouvellePartie">
+        <input type="button" class="btn-primary" id="btnCreerPartie" value="Créer une partie">
+    </form>
+</div>
+
+<br />
+<!-- Un espace pour afficher les parties, où le joueur peut sélectionner une partie à joindre-->
+<div class="section">
+    <div class="container">
+        <div id="parties_proposees">
+            <form id="choisir_partie">
+                <input type="button" id="btnJoindre" value="Joindre" />
+                <select id="liste_parties">
+                </select>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/Joueur.js"></script>  
+<script src="~/js/jeu.js"></script>
