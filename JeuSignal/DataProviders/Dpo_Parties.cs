@@ -50,7 +50,7 @@ namespace JeuSignal.DataProviders
             return partie; 
         }
 
-        internal void AddPlayer(string id, string joueur2)
+        public void AddPlayer(string id, string joueur2)
         {
             SqlConnection connexion = new SqlConnection();
             connexion.ConnectionString = CONNSTRING;
@@ -108,6 +108,7 @@ namespace JeuSignal.DataProviders
                     partie.Id = (string)reader["Id"];
                     partie.Joueur1 = (string)reader["Joueur1"];
                     partie.Joueur2 = (string)reader["Joueur2"];
+                    partie.Couleur_Joueur1 = (string)reader["couleur_joueur1"];
                 }
             }
             catch (SqlException ex)

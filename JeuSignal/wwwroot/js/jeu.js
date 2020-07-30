@@ -26,19 +26,24 @@ connection.on("GameProposed", function (joueur, partie) {
 	liste.appendChild(opt);
 });
 
-connection.on("GameOn", function (partie) {
-	Console.log("GameOn");
-	Console.log(partie);
-//	creerGrille(8);
-});
-
-connection.on("RetirerPartie", function (partie_id) {
-	Console.log("retirerPartie "+partie_id);
-//	var partie = document.getElementById("liste_parties");
-});
-
 connection.on("PartieIndisponible", function (partie_id) {
-	Console.log("PartieIndisponible");
+	console.log("PartieIndisponible: "+partie_id);
+	alert("Partie indisponible");
+	removeGame(partie_id);
+});
+
+
+connection.on("console", function (message) {
+	console.log(message); 
+});
+
+connection.on("JoinGame", function (message) {
+	console.log(JSON.stringify(message));
+	creerGrille(8);
+});
+
+connection.on("RemoveGame", function (game_id) {
+	removeGame(game_id);  
 });
 
 //gestion des parties: envoie
@@ -48,6 +53,7 @@ document.getElementById("btnCreerPartie").addEventListener("click", function (ev
 	connection.invoke("Create_Game", joueur).catch(function (err) {
 		 console.log(err.toString());
 	});
+	event.preventDefault(); 
 });
 
 document.getElementById('btnJoindre').addEventListener("click", function (event) {
@@ -59,29 +65,29 @@ document.getElementById('btnJoindre').addEventListener("click", function (event)
 		console.log("catch d'erreur");
 		return console.error(err.toString());
 	});
+	event.preventDefault();
 });
 
-/*
-document.getElementById("btnJoindre").addEventListener("click", function (event) {
-	console.log("btnJoindre");
-	var user = document.getElementById("nom_joueur").innerHTML;
-	var partie = document.getElementById("liste_parties").value;
-	console.log("partie");
-	connection.invoke("Join_Game", partie, user).catch(function (err) {
-		console.log("catch d'erreur");
-		return console.error(err.toString());
-	});
-});
-*/
+
 
 document.getElementById('btnUser').addEventListener("click", function (event) {
 	var nomJoueur = document.getElementById("txt_nom_joueur").value;
 	document.getElementById("nom_joueur").innerHTML = nomJoueur;
 	enabled_buttons();
+	event.preventDefault();
 });
 
 
+//gestion des parties: fonctions
 
+function removeGame(game_id) {
+	var liste = document.getElementById("liste_parties");
+	for (var i = 0; i < liste.length; i++) {
+		if (liste[i].value == game_id) {
+			liste.remove(i); 
+        }
+    }
+}
 
 
 //réception d'un nouveau coup
@@ -104,7 +110,7 @@ connection.on("ReceiveMessage", function (user, coup) {
 
 
 //grille
-
+	
 
 function genererTuile(abs, ord) {
 	var tuile = document.createElement("div");
@@ -161,7 +167,7 @@ function creerGrille(arrete) {
 
 //drag and drop
 
-/*
+
 function drag(ev) {
 	ev.dataTransfer.setData("piece_id", ev.target.id);
 }
@@ -185,7 +191,7 @@ function drop(ev) {
 	console.log("Message envoyé");
 	event.preventDefault();
 }
-*/
+
 
 //utilitaires
 function enabled_buttons() {

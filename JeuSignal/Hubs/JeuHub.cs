@@ -18,10 +18,26 @@ namespace JeuSignal.Hubs
             await Clients.All.SendAsync("GameProposed", partie.Joueur1, partie.Id);
         }
 
-        public async Task Join_Game(string partie_id, string joueur2)
+        public async Task Join_Game(string game_id, string joueur2)
         {
-            Console.WriteLine("dans Join_Game");
-            await Clients.All.SendAsync("RetirerPartie", partie_id);
+            Console.WriteLine("Join_Game; "+game_id);
+            Dpo_Parties provider = new Dpo_Parties();
+            Partie partie = provider.FindGame(game_id);
+
+            if (partie.Joueur2 == null || partie.Joueur2 == "")
+            {
+                provider.AddPlayer(partie.Id, joueur2);
+                partie.Joueur2 = joueur2;
+
+                await Groups.AddToGroupAsync(Context.ConnectionId, partie.Id); 
+                await Clients.Group(partie.Id).SendAsync("JoinGame", partie);
+                await Clients.All.SendAsync("RemoveGame", game_id);
+            }
+            else
+            {
+                await Clients.Caller.SendAsync("PartieIndisponible", partie.Id);
+            }
+
         } 
             /*
             public async Task Join_Game(string partie_id, string joueur2)
@@ -62,5 +78,13 @@ namespace JeuSignal.Hubs
          * 
          * ensuite, partage à travers le groupe.
          */
+
+
+
+        public override async Task OnConnectedAsync()
+        {
+            await Clients.All.SendAsync("console", "onconnectedAsync message");
+            await base.OnConnectedAsync();
+        }
     }
 }
