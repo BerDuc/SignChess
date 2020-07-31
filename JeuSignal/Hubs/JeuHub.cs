@@ -15,7 +15,7 @@ namespace JeuSignal.Hubs
             Partie partie = new Dpo_Parties().AddGame(joueur);
 
             await Groups.AddToGroupAsync(Context.ConnectionId, partie.Id);
-            await Clients.All.SendAsync("GameProposed", partie.Joueur1, partie.Id);
+            await Clients.Others.SendAsync("GameProposed", partie.Joueur1, partie.Id);
         }
 
         public async Task Join_Game(string game_id, string joueur2)
