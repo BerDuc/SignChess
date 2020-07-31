@@ -20,7 +20,6 @@ namespace JeuSignal.Hubs
 
         public async Task Join_Game(string game_id, string joueur2)
         {
-            Console.WriteLine("Join_Game; "+game_id);
             Dpo_Parties provider = new Dpo_Parties();
             Partie partie = provider.FindGame(game_id);
 
@@ -41,27 +40,15 @@ namespace JeuSignal.Hubs
         } 
 
 
-            public async Task SignalerCoup(string partie, string coup)
+         public async Task SignalerCoup(string partie, Coup coup)
         {
             await Clients.OthersInGroup(partie).SendAsync("ReceiveMessage", coup);
         }
 
-        /*créer un objet "partie" avec un nom et deux joueurs possibles. Le nom de la partie dois 
-         * servir à identifier un groupe. 
-         * 
-         * faire en sorte qu'il ne puisse pas y avoir plus que deux connexions par groupe
-         * 
-         * partager le même damier?
-         * un joueur qui crée la partie (et le damier) et un autre qui la rejoint
-         * 
-         * ensuite, partage à travers le groupe.
-         */
-
-
-            /*
+      
+        /*
         public override async Task OnConnectedAsync()
         {
-            await Clients.All.SendAsync("console", "onconnectedAsync message");
             await base.OnConnectedAsync();
         }
         */

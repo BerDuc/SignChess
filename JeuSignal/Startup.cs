@@ -43,6 +43,8 @@ namespace JeuSignal
                 app.UseHsts();
             }
 
+            
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

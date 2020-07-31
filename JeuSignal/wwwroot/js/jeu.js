@@ -1,11 +1,14 @@
-﻿//import { Joueur } from "Joueur.js";
-"use strict";
+﻿"use strict";
 
 
 //Désactiver les boutons jusqu'à ce que la connexion soit établie
 document.getElementById("btnUser").disabled = true;
 document.getElementById("btnCreerPartie").disabled = true; 
 document.getElementById("btnJoindre").disabled = true; 
+
+
+//variable partie
+let partie_en_cours; 
 
 //établir la connexion
 var connection = new signalR.HubConnectionBuilder().withUrl("/jeuHub").build();
@@ -39,7 +42,8 @@ connection.on("console", function (message) {
 
 connection.on("GameOn", function (partie) {
 	console.log(JSON.stringify(partie));
-	setTablePartie(partie)
+	partie_en_cours = partie; 
+	setTablePartie()
 	creerGrille(8);
 });
 
@@ -90,12 +94,12 @@ function removeGame(game_id) {
     }
 }
 
-function setTablePartie(partie) {
-	document.getElementById("joueur1_nom").innerHTML = partie.joueur1;
-	document.getElementById("joueur2_nom").innerHTML = partie.joueur2;
+function setTablePartie() {
+	document.getElementById("joueur1_nom").innerHTML = partie_en_cours.joueur1;
+	document.getElementById("joueur2_nom").innerHTML = partie_en_cours.joueur2;
 
-	document.getElementById("joueur1_couleur").innerHTML = partie.couleur_Joueur1;
-	if (partie.couleur_Joueur1 === "noirs") {
+	document.getElementById("joueur1_couleur").innerHTML = partie_en_cours.couleur_Joueur1;
+	if (partie_en_cours.couleur_Joueur1 === "noirs") {
 		document.getElementById("joueur2_couleur").innerHTML = "blancs";
     } else {
 		document.getElementById("joueur2_couleur").innerHTML = "noirs";
@@ -106,21 +110,12 @@ function setTablePartie(partie) {
 
 //réception d'un nouveau coup
 
-/*
-connection.on("ReceiveMessage", function (user, coup) {
+
+connection.on("ReceiveMessage", function (coup) {
 	//récupérer le coup - tuile de départ et tuile d'arrivée et le reproduire
-	console.log("Message reçu!");
-	console.log("coup: " + coup);
-	*/
-	/*	
-		var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); //whaat???
-		var encodedMsg = user + " says " + msg;
-		var li = document.createElement("li"); //ajoute un message à la liste
-		li.textContent = encodedMsg;
-		document.getElementById("messagesList").appendChild(li);
-	
+	deplacerPiece(coup);
 });
-	*/
+	
 
 
 //grille
@@ -193,17 +188,24 @@ function allowDrop(ev) {
 function drop(ev) {
 	ev.preventDefault();
 	var data = ev.dataTransfer.getData("piece_id");
+	console.log(data); 
+	var origine = document.getElementById(data).parentNode.id; 
+	var destination = ev.target.id;
+	let coup = new Coup(data, origine, destination); 
 	ev.target.appendChild(document.getElementById(data));
-	var coup = data + "-" + document.getElementById(data).value + "-" + ev.target.id;
-	//par exemple, coup: "pion8-tuile_
-	console.log("Coup joué: " + coup);
 	document.getElementById(data).value = ev.target.id;
-	var user = "usager standard";
-	connection.invoke("SignalerCoup", user, coup).catch(function (err) {
+	console.log(partie_en_cours); 
+	connection.invoke("SignalerCoup", partie_en_cours.id, coup).catch(function (err) {
 		return console.error(err.toString());
 	});
 	console.log("Message envoyé");
 	event.preventDefault();
+}
+
+function deplacerPiece(coup) {
+	let piece = document.getElementById(coup.piece);
+	document.getElementById(coup.origine).removeChild(piece); 
+	document.getElementById(coup.destination).appendChild(piece); 
 }
 
 

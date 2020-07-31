@@ -40,5 +40,14 @@ C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\runtim
 C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Connections.Abstractions.dll
+C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.SignalR.Common.dll
+C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
+C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\bin\Debug\netcoreapp3.1\System.IO.Pipelines.dll
 C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\obj\Debug\netcoreapp3.1\JeuSignal.csproj.CoreCompileInputs.cache
 C:\Users\Bernard\source\repos\JeuSignal\JeuSignal\obj\Debug\netcoreapp3.1\JeuSignal.MvcApplicationPartsAssemblyInfo.cache
