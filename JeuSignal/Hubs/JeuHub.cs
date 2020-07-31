@@ -30,7 +30,7 @@ namespace JeuSignal.Hubs
                 partie.Joueur2 = joueur2;
 
                 await Groups.AddToGroupAsync(Context.ConnectionId, partie.Id); 
-                await Clients.Group(partie.Id).SendAsync("JoinGame", partie);
+                await Clients.Group(partie.Id).SendAsync("GameOn", partie);
                 await Clients.All.SendAsync("RemoveGame", game_id);
             }
             else
@@ -39,29 +39,7 @@ namespace JeuSignal.Hubs
             }
 
         } 
-            /*
-            public async Task Join_Game(string partie_id, string joueur2)
-            {
-                Console.WriteLine("dans Join_Game");
-                Dpo_Parties provider = new Dpo_Parties();
-                Partie partie = provider.FindGame(partie_id);
-                if(partie.Joueur2 == null || partie.Joueur2 == "")
-                {
-                    Console.WriteLine("Dans le if. Partie.id ="+partie.Id);
-                    provider.AddPlayer(partie.Id, joueur2);
 
-                    await Groups.AddToGroupAsync(Context.ConnectionId, partie.Id);
-                    await Clients.Group(partie.Id).SendAsync("GameOn", partie.Id);
-                    await Clients.All.SendAsync("RetirerPartie", partie_id);
-                    Console.WriteLine("à la fin du if");
-                }
-                else
-                {
-                    await Clients.Caller.SendAsync("PartieIndisponible", partie.Id);
-                }
-
-            }
-                */
 
             public async Task SignalerCoup(string partie, string coup)
         {
@@ -80,11 +58,14 @@ namespace JeuSignal.Hubs
          */
 
 
-
+            /*
         public override async Task OnConnectedAsync()
         {
             await Clients.All.SendAsync("console", "onconnectedAsync message");
             await base.OnConnectedAsync();
         }
+        */
+
+
     }
 }

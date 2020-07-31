@@ -4,49 +4,65 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="Section">
-    <div class="container">
-        <div id="espace_joueur">
-            <h2 id="nom_joueur"></h2>
-            <form id="form_joueur">
-                <input type="text" id="txt_nom_joueur" placeholder="votre nom" />
-                <input type="button" id="btnUser" value="Nom joueur" />
-            </form>
+    <div class="tile is-ancestor">
+
+        <div class="tile is-8 is-parent is-vertical">
+
+            <!--Identifiant du joueur-->
+            <div class="tile is-child">
+                <div id="espace_joueur">
+                    <h2 id="nom_joueur"></h2>
+                    <form id="form_joueur">
+                        <input class="input" type="text" id="txt_nom_joueur" placeholder="votre nom" />
+                        <input class="button is-primary" type="button" id="btnUser" value="Nom joueur" />
+                    </form>
+                </div>
+            </div>
+            <!--Détails de la partie-->
+            <div class="tile is-child">
+                <table class="table">
+                    <tr>
+                        <td>Joueur 1</td>
+                        <td id="joueur1_nom"></td>
+                        <td id="joueur1_couleur"></td>
+                    </tr>
+                    <tr>
+                        <td>Joueur 2</td>
+                        <td id="joueur2_nom"></td>
+                        <td id="joueur2_couleur"></td>
+                    </tr>
+
+                </table>
+            </div>
+
+
+            <div class="tile is-child">
+                <div id="monDamier" class="zone_jeu">
+
+                </div>
+            </div>
+
         </div>
-    </div>
-</div>
 
-<br />
-<div class="section">
-    <div class="container">
-        <div id="monDamier" class="zone_jeu">
+
+        <!-- Un espace pour afficher les parties, où le joueur peut sélectionner une partie à joindre-->
+        <div class="tile">
+            <div id="parties_proposees">
+                <form id="choisir_partie">
+                    <input type="button" class="button is-primary" id="btnCreerPartie" value="Créer une partie">
+                    <select id="liste_parties">
+                    </select>
+                    <input class="button is-primary" type="button" id="btnJoindre" value="Joindre" />
+                </form>
+            </div>
 
         </div>
-    </div>
-</div>
 
-<br />
-<!-- Un espace pour créer des parties -->
-<div>
-    <form id="nouvellePartie">
-        <input type="button" class="btn-primary" id="btnCreerPartie" value="Créer une partie">
-    </form>
-</div>
 
-<br />
-<!-- Un espace pour afficher les parties, où le joueur peut sélectionner une partie à joindre-->
-<div class="section">
-    <div class="container">
-        <div id="parties_proposees">
-            <form id="choisir_partie">
-                <input type="button" id="btnJoindre" value="Joindre" />
-                <select id="liste_parties">
-                </select>
-            </form>
-        </div>
     </div>
 
-</div>
+
+
 
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>

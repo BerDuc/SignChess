@@ -1,8 +1,9 @@
 ﻿export class Joueur {
 
     constructor(nom) {
-        this.nom = nom;
-        this.partie = 0;
+        this._nom = nom;
+        this._couleur = couleur;
+        this._partie = 0;
     }
 };
 

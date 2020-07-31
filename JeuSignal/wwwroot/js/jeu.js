@@ -37,8 +37,9 @@ connection.on("console", function (message) {
 	console.log(message); 
 });
 
-connection.on("JoinGame", function (message) {
-	console.log(JSON.stringify(message));
+connection.on("GameOn", function (partie) {
+	console.log(JSON.stringify(partie));
+	setTablePartie(partie)
 	creerGrille(8);
 });
 
@@ -87,6 +88,19 @@ function removeGame(game_id) {
 			liste.remove(i); 
         }
     }
+}
+
+function setTablePartie(partie) {
+	document.getElementById("joueur1_nom").innerHTML = partie.joueur1;
+	document.getElementById("joueur2_nom").innerHTML = partie.joueur2;
+
+	document.getElementById("joueur1_couleur").innerHTML = partie.couleur_Joueur1;
+	if (partie.couleur_Joueur1 === "noirs") {
+		document.getElementById("joueur2_couleur").innerHTML = "blancs";
+    } else {
+		document.getElementById("joueur2_couleur").innerHTML = "noirs";
+    }
+	
 }
 
 
