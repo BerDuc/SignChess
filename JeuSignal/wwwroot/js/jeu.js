@@ -52,6 +52,16 @@ connection.on("RemoveGame", function (game_id) {
 	removeGame(game_id);  
 });
 
+//réception d'un nouveau coup
+
+
+connection.on("ReceiveMessage", function (coup) {
+	//récupérer le coup - tuile de départ et tuile d'arrivée et le reproduire
+	deplacerPiece(coup);
+});
+
+
+
 //gestion des parties: envoie
 
 document.getElementById("btnCreerPartie").addEventListener("click", function (event) {
@@ -107,14 +117,7 @@ function setTablePartie() {
 }
 
 
-//réception d'un nouveau coup
 
-
-connection.on("ReceiveMessage", function (coup) {
-	//récupérer le coup - tuile de départ et tuile d'arrivée et le reproduire
-	deplacerPiece(coup);
-});
-	
 
 
 //preparation du jeu
@@ -141,16 +144,16 @@ function creerGrille(arrete) {
 	damier.style.width = arrete * 100 + "px";
 
 	let joueur = document.getElementById("nom_joueur").innerHTML
-	console.log("joueur = " + joueur); 
-	console.log("joueur1 = " + partie_en_cours.joueur1); 
+	
 	let couleur = "blancs";
 	if (joueur == partie_en_cours.joueur1) {
 		couleur = partie_en_cours.couleur_Joueur1;
 	} else {
 		couleur = document.getElementById("joueur2_couleur").innerHTML
 	}
-	console.log("couleur = " + couleur); 
 	genererGrille(arrete, couleur, damier);
+	quadrillage(arrete); 
+	
 }
 
 function genererGrille(arrete, joueur, grille_element) {
@@ -171,6 +174,39 @@ function genererGrille(arrete, joueur, grille_element) {
 		}
     }	
 }
+
+function quadrillage(arrete, couleurPremiere = "black", couleurSeconde = "white") {	
+	console.log("quadrillage"); 
+	let couleurDepart = couleurPremiere;
+	let couleur = couleurDepart; 
+	let tuile;
+	for (let i = 1; i <= arrete; i++) {
+		console.log(i);
+		couleur = couleurDepart;
+		for (let j = 1; j <= arrete; j++) {
+			console.log(j);
+			tuile = document.getElementById("tuile_" + i + "_" + j);
+			console.log("couleur = ");
+			console.log(couleur); 
+			tuile.style["backgroundColor"] = couleur; 
+			console.log("backgroundColor affecté"); 
+			console.log(tuile.style["backgroundColor"]);
+			if (couleur === couleurPremiere) {
+				couleur = couleurSeconde;
+			} else {
+				couleur = couleurPremiere;
+			}
+
+		}
+
+		if (couleurDepart === couleurPremiere) {
+			couleurDepart = couleurSeconde;
+		} else {
+			couleurDepart = couleurPremiere;
+		}
+	}
+}
+
 
 function placerPieces() {
 	placerPions();
