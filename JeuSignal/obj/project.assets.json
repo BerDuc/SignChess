@@ -2086,9 +2086,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bernard\\source\\repos\\JeuSignal\\JeuSignal\\JeuSignal.csproj",
-      "projectName": "JeuSignal",
-      "projectPath": "C:\\Users\\Bernard\\source\\repos\\JeuSignal\\JeuSignal\\JeuSignal.csproj",
+      "projectUniqueName": "C:\\Users\\Bernard\\source\\repos\\JeuSignal\\JeuSignal\\SignChess.csproj",
+      "projectName": "SignChess",
+      "projectPath": "C:\\Users\\Bernard\\source\\repos\\JeuSignal\\JeuSignal\\SignChess.csproj",
       "packagesPath": "C:\\Users\\Bernard\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Bernard\\source\\repos\\JeuSignal\\JeuSignal\\obj\\",
       "projectStyle": "PackageReference",

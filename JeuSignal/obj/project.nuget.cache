@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v48H0LLWJ8LTK1RUZj9HYTJipARoDVwNg6RQeGMYZWqAL68AKPxdBdzcSzsHh02sVLNfK0Nq5KXaaRgZz38Pww==",
+  "dgSpecHash": "igIcj0W75/O5R+qy1DtglHu+/MPDiPXXfJmZg3+IcluQ7yqTnQ4TnRiqwZJtPRz6Nsi6pQ6mTXvuYZA+xTTvdQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Bernard\\source\\repos\\JeuSignal\\JeuSignal\\JeuSignal.csproj",
+  "projectFilePath": "C:\\Users\\Bernard\\source\\repos\\JeuSignal\\JeuSignal\\SignChess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Bernard\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Bernard\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",
