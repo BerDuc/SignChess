@@ -9,7 +9,6 @@ connection.on("GameProposed", function (joueur, partie) {
 });
 
 connection.on("PartieIndisponible", function (partie_id) {
-	console.log("PartieIndisponible: " + partie_id);
 	alert("Partie indisponible");
 	removeGame(partie_id);
 });
@@ -20,7 +19,6 @@ connection.on("console", function (message) {
 });
 
 connection.on("GameOn", function (partie) {
-	console.log(JSON.stringify(partie));
 	partie_en_cours = partie;
 	setTablePartie();
 	creerGrille(8);

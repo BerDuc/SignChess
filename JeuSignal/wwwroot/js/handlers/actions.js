@@ -12,7 +12,6 @@ document.getElementById('btnJoindre').addEventListener("click", function (event)
 	var user = document.getElementById("nom_joueur").innerHTML;
 	var partie = document.getElementById("liste_parties").value;
 	connection.invoke("Join_Game", partie, user).catch(function (err) {
-		console.log("catch d'erreur");
 		return console.error(err.toString());
 	});
 	event.preventDefault();

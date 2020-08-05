@@ -20,9 +20,7 @@ function genererPiece(type, couleur, id) {
 function creerGrille(arrete) {
 	let damier = document.getElementById("monDamier");
 	damier.style.width = arrete * 100 + "px";
-
 	let joueur = document.getElementById("nom_joueur").innerHTML
-
 	let couleur = "blancs";
 	if (joueur == partie_en_cours.joueur1) {
 		couleur = partie_en_cours.couleur_Joueur1;
@@ -35,7 +33,6 @@ function creerGrille(arrete) {
 }
 
 function genererGrille(arrete, joueur, grille_element) {
-	console.log("genererGrille. joueur=" + joueur);
 	if (joueur == "blancs") {
 		for (let i = arrete; i > 0; i--) {
 			for (let j = 1; j <= arrete; j++) {
@@ -54,22 +51,16 @@ function genererGrille(arrete, joueur, grille_element) {
 }
 
 function quadrillage(arrete, couleurPremiere = "black", couleurSeconde = "white") {
-	console.log("quadrillage");
 	let couleurDepart = couleurPremiere;
 	let couleur = couleurDepart;
 	let tuile;
 	for (let i = 1; i <= arrete; i++) {
-		console.log(i);
 		couleur = couleurDepart;
 		for (let j = 1; j <= arrete; j++) {
-			console.log(j);
 			tuile = document.getElementById("tuile_" + i + "_" + j);
-			console.log("couleur = ");
-			console.log(couleur);
+			
 			tuile.style["backgroundColor"] = couleur;
-			console.log("backgroundColor affecté");
-			console.log(tuile.style["backgroundColor"]);
-			if (couleur === couleurPremiere) {
+						if (couleur === couleurPremiere) {
 				couleur = couleurSeconde;
 			} else {
 				couleur = couleurPremiere;
@@ -92,21 +83,17 @@ function placerPieces() {
 }
 
 function placerPions() {
-	console.log("placerPions");
 	let pion;
 	for (let i = 1; i <= 8; i++) {
-		console.log("pions" + i)
 		pion = genererPiece("pion", "blanc", "pion_blanc_" + i);
 		document.getElementById("tuile_2_" + i).appendChild(pion);
 		pion = genererPiece("pion", "noir", "pion_noir_" + i);
 		document.getElementById("tuile_7_" + i).appendChild(pion);
 	}
-
-
 }
 
 function placerAutresPieces() {
-	console.log("autre pièces");
+
 	//roi
 	let piece = genererPiece("roi", "blanc", "roi_blanc");
 	document.getElementById("tuile_1_5").appendChild(piece);
