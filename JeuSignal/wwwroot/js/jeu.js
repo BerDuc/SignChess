@@ -9,6 +9,8 @@ document.getElementById("btnJoindre").disabled = true;
 
 //variable partie
 let partie_en_cours; 
+let joueur1;
+let joueur2; 
 
 //établir la connexion
 var connection = new signalR.HubConnectionBuilder().withUrl("/jeuHub").build();
@@ -39,13 +41,8 @@ function setTablePartie() {
 		document.getElementById("joueur2_couleur").innerHTML = "blancs";
     } else {
 		document.getElementById("joueur2_couleur").innerHTML = "noirs";
-    }
-	
+    }	
 }
 
-//utilitaires
-function enabled_buttons() {
-	document.getElementById("btnCreerPartie").disabled = false;
-	document.getElementById("btnJoindre").disabled = false;
-}
+
 
