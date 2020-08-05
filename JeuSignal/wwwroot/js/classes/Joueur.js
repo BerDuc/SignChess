@@ -1,9 +1,11 @@
 ﻿export class Joueur {
 
-    constructor(nom) {
+    constructor(nom, couleur) {
         this._nom = nom;
         this._couleur = couleur;
-        this._partie = 0;
+        this._roi_a_bouge = false;
+        this._tour1_a_bouge = false;
+        this._tour2_a_bouge = false; 
     }
 };
 
