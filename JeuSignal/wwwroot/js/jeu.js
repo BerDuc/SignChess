@@ -294,17 +294,14 @@ function allowDrop(ev) {
 function drop(ev) {
 	ev.preventDefault();
 	var data = ev.dataTransfer.getData("piece_id");
-	console.log(data); 
 	var origine = document.getElementById(data).parentNode.id; 
 	var destination = ev.target.id;
 	let coup = new Coup(data, origine, destination); 
 	ev.target.appendChild(document.getElementById(data));
-	document.getElementById(data).value = ev.target.id;
-	console.log(partie_en_cours); 
+	document.getElementById(data).value = ev.target.id; 
 	connection.invoke("SignalerCoup", partie_en_cours.id, coup).catch(function (err) {
 		return console.error(err.toString());
 	});
-	console.log("Message envoyé");
 	event.preventDefault();
 }
 
