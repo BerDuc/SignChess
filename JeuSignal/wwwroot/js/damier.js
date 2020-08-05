@@ -96,9 +96,9 @@ function placerPions() {
 	let pion;
 	for (let i = 1; i <= 8; i++) {
 		console.log("pions" + i)
-		pion = genererPiece("pion", "blanc", "pion_blanc" + i);
+		pion = genererPiece("pion", "blanc", "pion_blanc_" + i);
 		document.getElementById("tuile_2_" + i).appendChild(pion);
-		pion = genererPiece("pion", "noir", "pion_noir" + i);
+		pion = genererPiece("pion", "noir", "pion_noir_" + i);
 		document.getElementById("tuile_7_" + i).appendChild(pion);
 	}
 
@@ -120,36 +120,36 @@ function placerAutresPieces() {
 	document.getElementById("tuile_8_4").appendChild(piece);
 
 	//tour
-	piece = genererPiece("tour", "noire", "tour_noire1");
+	piece = genererPiece("tour", "noire", "tour_noire_1");
 	document.getElementById("tuile_8_1").appendChild(piece);
-	piece = genererPiece("tour", "noire", "tour_noire2");
+	piece = genererPiece("tour", "noire", "tour_noire_2");
 	document.getElementById("tuile_8_8").appendChild(piece);
 
-	piece = genererPiece("tour", "blanche", "tour_blanche1");
+	piece = genererPiece("tour", "blanche", "tour_blanche_1");
 	document.getElementById("tuile_1_1").appendChild(piece);
-	piece = genererPiece("tour", "blanche", "tour_blanche2");
+	piece = genererPiece("tour", "blanche", "tour_blanche_2");
 	document.getElementById("tuile_1_8").appendChild(piece);
 
 	//cavalier
-	piece = genererPiece("cavalier", "noir", "cavalier_noir1");
+	piece = genererPiece("cavalier", "noir", "cavalier_noir_1");
 	document.getElementById("tuile_8_2").appendChild(piece);
-	piece = genererPiece("cavalier", "noir", "cavalier_noir2");
+	piece = genererPiece("cavalier", "noir", "cavalier_noir_2");
 	document.getElementById("tuile_8_7").appendChild(piece);
 
-	piece = genererPiece("cavalier", "blanc", "cavalier_blanc1");
+	piece = genererPiece("cavalier", "blanc", "cavalier_blanc_1");
 	document.getElementById("tuile_1_2").appendChild(piece);
-	piece = genererPiece("cavalier", "blanc", "cavalier_blanc2");
+	piece = genererPiece("cavalier", "blanc", "cavalier_blanc_2");
 	document.getElementById("tuile_1_7").appendChild(piece);
 
 	//fou
-	piece = genererPiece("fou", "noir", "fou_noir1");
+	piece = genererPiece("fou", "noir", "fou_noir_1");
 	document.getElementById("tuile_8_3").appendChild(piece);
-	piece = genererPiece("fou", "noir", "fou_noir2");
+	piece = genererPiece("fou", "noir", "fou_noir_2");
 	document.getElementById("tuile_8_6").appendChild(piece);
 
-	piece = genererPiece("fou", "blanc", "fou_blanc1");
+	piece = genererPiece("fou", "blanc", "fou_blanc_1");
 	document.getElementById("tuile_1_3").appendChild(piece);
-	piece = genererPiece("fou", "blanc", "fou_blanc2");
+	piece = genererPiece("fou", "blanc", "fou_blanc_2");
 	document.getElementById("tuile_1_6").appendChild(piece);
 }
 
