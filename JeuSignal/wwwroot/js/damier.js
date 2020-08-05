@@ -22,10 +22,10 @@ function creerGrille(arrete) {
 	damier.style.width = arrete * 100 + "px";
 	let joueur = document.getElementById("nom_joueur").innerHTML
 	let couleur = "blancs";
-	if (joueur == partie_en_cours.joueur1) {
-		couleur = partie_en_cours.couleur_Joueur1;
+	if (joueur == partie_en_cours.joueur1.nom) {
+		couleur = partie_en_cours.joueur1.couleur;
 	} else {
-		couleur = document.getElementById("joueur2_couleur").innerHTML
+		couleur = partie_en_cours.joueur2.couleur;
 	}
 	genererGrille(arrete, couleur, damier);
 	quadrillage(arrete);

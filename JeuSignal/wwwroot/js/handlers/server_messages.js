@@ -13,13 +13,12 @@ connection.on("PartieIndisponible", function (partie_id) {
 	removeGame(partie_id);
 });
 
-
-connection.on("console", function (message) {
-	console.log(message);
-});
-
 connection.on("GameOn", function (partie) {
-	partie_en_cours = partie;
+	partie_en_cours = new Partie(
+		partie.id,
+		new Joueur(partie.joueur1, partie.couleur_Joueur1),
+		new Joueur(partie.joueur2, couleur_inverse(partie.couleur_Joueur1))
+	);
 	setTablePartie();
 	creerGrille(8);
 	placerPieces();
