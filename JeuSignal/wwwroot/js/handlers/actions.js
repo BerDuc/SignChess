@@ -22,7 +22,7 @@ document.getElementById('btnJoindre').addEventListener("click", function (event)
 document.getElementById('btnUser').addEventListener("click", function (event) {
 	var nomJoueur = document.getElementById("txt_nom_joueur").value;
 	document.getElementById("nom_joueur").innerHTML = nomJoueur;
-	enabled_buttons();
+	enable_buttons(["btnCreerPartie", "btnJoindre"]);
 	event.preventDefault();
 });
 
