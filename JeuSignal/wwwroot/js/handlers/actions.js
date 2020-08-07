@@ -40,17 +40,27 @@ function allowDrop(ev) {
 
 function drop(ev) {
 	ev.preventDefault();
-	var data = ev.dataTransfer.getData("piece_id");
-	var origine = document.getElementById(data).parentNode.id;
-	var destination = ev.target.id;
+	let data = ev.dataTransfer.getData("piece_id");
+	let origine = document.getElementById(data).parentNode.id;
+	let destination = destination_tuile(ev.target.id);
 	let coup = new Coup(data, origine, destination);
-	ev.target.appendChild(document.getElementById(data));
-	document.getElementById(data).value = ev.target.id;
-	connection.invoke("SignalerCoup", partie_en_cours.id, coup).catch(function (err) {
-		return console.error(err.toString());
-	});
+	let joueur = get_joueur(); 
+	if (valider_coup(joueur.couleur, coup)) {
+		console.log("coup valide"); 
+		ev.target.appendChild(document.getElementById(data));
+		document.getElementById(data).value = ev.target.id;
+		connection.invoke("SignalerCoup", partie_en_cours.id, coup).catch(function (err) {
+			return console.error(err.toString());
+		});
+	} else {
+		console.log("coup invalide"); 
+		coup.destination = coup.origine;
+		deplacerPiece(coup); 
+    }
 	event.preventDefault();
 }
+
+
 
 function deplacerPiece(coup) {
 	let piece = document.getElementById(coup.piece);
