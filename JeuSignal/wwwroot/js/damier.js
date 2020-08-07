@@ -33,7 +33,7 @@ function creerGrille(arrete) {
 }
 
 function genererGrille(arrete, joueur, grille_element) {
-	if (joueur == "blancs") {
+	if (joueur == "blanc") {
 		for (let i = arrete; i > 0; i--) {
 			for (let j = 1; j <= arrete; j++) {
 				let tuile = genererTuile(i, j);
@@ -101,20 +101,20 @@ function placerAutresPieces() {
 	document.getElementById("tuile_8_5").appendChild(piece);
 
 	//dame
-	piece = genererPiece("dame", "blanche", "dame_blanche");
+	piece = genererPiece("dame", "blanc", "dame_blanc");
 	document.getElementById("tuile_1_4").appendChild(piece);
-	piece = genererPiece("dame", "noire", "dame_noire");
+	piece = genererPiece("dame", "noir", "dame_noir");
 	document.getElementById("tuile_8_4").appendChild(piece);
 
 	//tour
-	piece = genererPiece("tour", "noire", "tour_noire_1");
+	piece = genererPiece("tour", "noir", "tour_noir_1");
 	document.getElementById("tuile_8_1").appendChild(piece);
-	piece = genererPiece("tour", "noire", "tour_noire_2");
+	piece = genererPiece("tour", "noir", "tour_noir_2");
 	document.getElementById("tuile_8_8").appendChild(piece);
 
-	piece = genererPiece("tour", "blanche", "tour_blanche_1");
+	piece = genererPiece("tour", "blanc", "tour_blanc_1");
 	document.getElementById("tuile_1_1").appendChild(piece);
-	piece = genererPiece("tour", "blanche", "tour_blanche_2");
+	piece = genererPiece("tour", "blanc", "tour_blanc_2");
 	document.getElementById("tuile_1_8").appendChild(piece);
 
 	//cavalier
