@@ -17,9 +17,14 @@ function valider_coup(couleurJoueur, coup) {
         return  false;
     }
 
+    console.log(couleurJoueur); 
     switch (coup.piece.split("_")[0]) {
         case "pion":
-            return  valider_pion(coup);
+            if (couleurJoueur == "blanc") {
+                return valider_pion_blanc(couleurJoueur, coup);
+            } else {
+                return valider_pion_noir(couleurJoueur, coup);
+            }
             break;
         case "cavalier":
             return  valider_cavalier(coup);
@@ -66,13 +71,80 @@ function est_prise(couleurJoueur, destination) {
     return prise;
 }
 
-function valider_pion(coup) {
+function valider_pion_noir(couleurJoueur, coup) {
     valide = true;
+    origine = coup.origine.split("_");
+    destination = coup.destination.split("_");
+    console.log("origine = " + JSON.stringify(origine)); 
+    console.log("origine = " + JSON.stringify(destination)); 
+    if (est_prise(couleurJoueur, document.getElementById(coup.destination))) {
+        if (destination[1] - origine[1] != -1 || Math.abs(destination[2] - origine[2]) != 1) {
+            valide = false;
+        }
+    } else {
+        if (destination[2] - origine[2] != 0) {
+            valide = false;
+        }
+        if (origine[1] == 7) {
+            if (destination[1] - origine[1] < -2 || destination[1] - origine[1] >0 ) {
+                valide = false;
+            }
+        } else if (destination[1] - origine[1] < -1 || destination[1] - origine[1] > 0 ) {
+            valide = false;
+        }
+    }
+    
+    return valide;
+}
+
+function valider_pion_blanc(couleurJoueur, coup) {
+    valide = true;
+
+    origine = coup.origine.split("_");
+    destination = coup.destination.split("_"); 
+
+
+    if (est_prise(couleurJoueur, document.getElementById(coup.destination))) {
+        if (destination[1] - origine[1] != 1 || Math.abs(destination[2] - origine[2]) != 1) {
+            valide = false; 
+        } 
+    } else {
+        if (destination[2] - origine[2] != 0) {
+
+            valide = false;
+        }
+
+        if (origine[1] == 2) {
+
+            if (destination[1] - origine[1] > 2 || destination[1] - origine[1] < 0) {
+
+                valide = false;
+            } 
+        } else if (destination[1] - origine[1] > 1 || destination[1] - origine[1] < 0 ) {
+            valide = false;
+        } 
+    }
+    
     return valide;
 }
 
 function valider_cavalier(coup) {
-    valide = true;
+    valide = false;
+    origine = coup.origine.split("_");
+    destination = coup.destination.split("_");
+
+    if (Math.abs(origine[1] - destination[1]) == 2 || Math.abs(origine[2] - destination[2]) == 2) {
+        if (Math.abs(origine[1] - destination[1]) == 2) {
+            if (Math.abs(origine[2] - destination[2]) == 1) {
+                valide = true;
+            }
+        } else {
+            if (Math.abs(origine[1] - destination[1]) == 1) {
+                valide = true;
+            }
+        }
+    }
+
     return valide;
 }
 
@@ -80,8 +152,8 @@ function valider_fou(coup) {
     valide = true;
     origine = coup.origine.split("_");
     destination = coup.destination.split("_");
-
-    if (Math.abs(origine[0] - destination[0]) != Math.abs(origine[1] - destination[1])) {
+    
+    if (Math.abs(origine[1] - destination[1]) != Math.abs(origine[2] - destination[2])) {
         valide = false;
     }
 
@@ -93,7 +165,7 @@ function valider_tour(coup) {
     origine = coup.origine.split("_");
     destination = coup.destination.split("_");
 
-    if (origine[0] != destination[0] && origine[1] != destination[1]) {
+    if (origine[1] != destination[1] && origine[2] != destination[2]) {
         valide = false;
     }
 
@@ -114,7 +186,7 @@ function valider_roi(coup) {
     destination = coup.destination.split("_");
 
     //cas normal: il bouge d'un
-    if (Math.abs(origine[0] - destination[0]) > 1 || Math.abs(origine[1] - destination[1]) > 1) {
+    if (Math.abs(origine[1] - destination[1]) > 1 || Math.abs(origine[2] - destination[2]) > 1) {
         valide = false;
     }
 
