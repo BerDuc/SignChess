@@ -3,6 +3,7 @@ function enable_buttons(array_btn) {
     array_btn.forEach(btn => document.getElementById(btn).disabled = false); 
 }
 
+
 function couleur_inverse(couleur) {
     if (couleur == "blanc") {
         return "noir";
@@ -10,6 +11,7 @@ function couleur_inverse(couleur) {
         return "blanc";
     }
 }
+
 
 function get_joueur() {
     ce_joueur = document.getElementById("nom_joueur").innerHTML;
@@ -26,3 +28,4 @@ function destination_tuile(destination) {
     }
     return destination;
 }
+

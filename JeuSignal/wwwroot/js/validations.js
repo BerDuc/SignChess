@@ -20,11 +20,7 @@ function valider_coup(couleurJoueur, coup) {
     console.log(couleurJoueur); 
     switch (coup.piece.split("_")[0]) {
         case "pion":
-            if (couleurJoueur == "blanc") {
-                return valider_pion_blanc(couleurJoueur, coup);
-            } else {
-                return valider_pion_noir(couleurJoueur, coup);
-            }
+            return valider_pion(couleurJoueur, coup);
             break;
         case "cavalier":
             return  valider_cavalier(coup);
@@ -70,63 +66,64 @@ function est_prise(couleurJoueur, destination) {
 
     return prise;
 }
+function renverserCoup(coup) {
+    coup[1] = 9 - coup[1]; 
+    return coup;
+}
 
-function valider_pion_noir(couleurJoueur, coup) {
-    valide = true;
-    origine = coup.origine.split("_");
-    destination = coup.destination.split("_");
-    console.log("origine = " + JSON.stringify(origine)); 
-    console.log("origine = " + JSON.stringify(destination)); 
+function valider_pion(couleurJoueur, coup) {
+    let valide = true;   
+    let origine = coup.origine.split("_");    
+    let destination = coup.destination.split("_");
+    if (couleurJoueur == "noir") {
+        origine = renverserCoup(origine);
+        destination = renverserCoup(destination);
+    }
+    let caseDepart = 2; 
+    let caseEnPassant = 5;
+    let mouv= 1;
+    let mouvDepart = 2;
+    console.log("destination[1] = " + destination[1]);
+    console.log("origine[1] = " + origine[1]);
+
     if (est_prise(couleurJoueur, document.getElementById(coup.destination))) {
-        if (destination[1] - origine[1] != -1 || Math.abs(destination[2] - origine[2]) != 1) {
+        console.log("est prise");
+        console.log((Math.abs(destination[2] - origine[2])))
+        if (destination[1] - origine[1] != mouv || Math.abs(destination[2] - origine[2]) != 1) {
             valide = false;
         }
     } else {
+        console.log("pas prise");
+        //if en_passant
         if (destination[2] - origine[2] != 0) {
+            console.log("pas devant?");
             valide = false;
-        }
-        if (origine[1] == 7) {
-            if (destination[1] - origine[1] < -2 || destination[1] - origine[1] >0 ) {
-                valide = false;
+        } else {
+            if (origine[1] == caseDepart) {
+                if (destination[1] - origine[1] > mouvDepart || destination[1] - origine[1] < 0) {
+                    valide = false;                  
+                }
+                if (valide) {
+                    if (couleurJoueur == "noir") {
+                        origine = renverserCoup(origine);
+                        destination = renverserCoup(destination);
+                    }
+                    valide = verifier_trajectoire_tour(origine, destination);
+                }
+            } else {
+                if (destination[1] - origine[1] > mouv || destination[1] - origine[1] < 0) {
+                    valide = false;
+                }
             }
-        } else if (destination[1] - origine[1] < -1 || destination[1] - origine[1] > 0 ) {
-            valide = false;
         }
     }
-    
+
+   
+
     return valide;
 }
 
-function valider_pion_blanc(couleurJoueur, coup) {
-    valide = true;
 
-    origine = coup.origine.split("_");
-    destination = coup.destination.split("_"); 
-
-
-    if (est_prise(couleurJoueur, document.getElementById(coup.destination))) {
-        if (destination[1] - origine[1] != 1 || Math.abs(destination[2] - origine[2]) != 1) {
-            valide = false; 
-        } 
-    } else {
-        if (destination[2] - origine[2] != 0) {
-
-            valide = false;
-        }
-
-        if (origine[1] == 2) {
-
-            if (destination[1] - origine[1] > 2 || destination[1] - origine[1] < 0) {
-
-                valide = false;
-            } 
-        } else if (destination[1] - origine[1] > 1 || destination[1] - origine[1] < 0 ) {
-            valide = false;
-        } 
-    }
-    
-    return valide;
-}
 
 function valider_cavalier(coup) {
     valide = false;
@@ -144,7 +141,7 @@ function valider_cavalier(coup) {
             }
         }
     }
-
+    
     return valide;
 }
 
@@ -157,8 +154,70 @@ function valider_fou(coup) {
         valide = false;
     }
 
+    if (valide) {
+        valide = verifier_trajectoire_fou(origine, destination); 
+    }
+
     return valide;
 }
+
+function verifier_trajectoire_fou(origine, destination) {
+    
+    if (origine[1] > destination[1] && origine[2] > destination[2]) {
+        let j = +destination[2] + 1;
+        for (let i = +destination[1] + 1; i < origine[1]; i++) {
+            let case_id = "tuile_" + i + "_" + j;
+            tuile = document.getElementById(case_id);
+            if (case_occupee(tuile)) {
+                return false;
+            }
+            j++;
+        }
+    }
+
+    if (origine[1] < destination[1] && origine[2] < destination[2]) {
+        let j = destination[2]-1;
+        for (let i = destination[1]-1; i > origine[1]; i--) {
+            let case_id = "tuile_" + i + "_" + j;
+            tuile = document.getElementById(case_id);
+            if (case_occupee(tuile)) {
+                        return false;
+            }
+            j--;
+        }
+
+    }
+
+    if(origine[1] > destination[1] && origine[2] < destination[2]) {
+        let j = destination[2]-1;
+        for (let i = +destination[1]+1; i < origine[1]; i++) {
+            let case_id = "tuile_" + i + "_" + j;
+            tuile = document.getElementById(case_id);
+            if (case_occupee(tuile)) {
+
+                return false;
+            }
+            j--;
+        }
+    }
+
+
+    if (origine[1] < destination[1] && origine[2] > destination[2]) {
+
+        let j = +destination[2]+1;
+        for (let i = destination[1]-1; i  > origine[1]; i--) {
+            let case_id = "tuile_" + i + "_" + j;
+            tuile = document.getElementById(case_id);
+            if (case_occupee(tuile)) {
+                return false;
+            }
+            j++;
+        }
+    }
+
+    return true;
+}
+
 
 function valider_tour(coup) {
     valide = true;
@@ -169,8 +228,64 @@ function valider_tour(coup) {
         valide = false;
     }
 
+    if (valide) {
+        valide = verifier_trajectoire_tour(origine, destination);
+    }
     return valide;
 }
+
+function verifier_trajectoire_tour(origine, destination) {
+    valide = true;
+
+    if (origine[1] == destination[1]) {
+        let i = origine[1];
+        if (origine[2] < destination[2]) {
+            for (let j = destination[2]-1; j > origine[2]; j--) {
+                let case_id = "tuile_" + i + "_" + j;
+                tuile = document.getElementById(case_id);
+                if (case_occupee(tuile)) {
+                    return false;
+                }
+            }
+        } else {
+            for (let j = +destination[2]+1; j < origine[2]; j++) {
+                let case_id = "tuile_" + i + "_" + j;
+                tuile = document.getElementById(case_id);
+                if (case_occupee(tuile)) {
+                    return false;
+                }
+            }
+        }
+    }
+    if (origine[2] == destination[2]) {
+        let j = origine[2];
+        if (origine[1] < destination[1]) {
+            for (let i = destination[1]-1; i > origine[1]; i--) {
+                let case_id = "tuile_" + i + "_" + j;
+                tuile = document.getElementById(case_id);
+                if (case_occupee(tuile)) {
+                    return false;
+                }
+            }
+
+        } else {
+            for (let i = +destination[1]+1; i < origine[1]; i++) {
+                let case_id = "tuile_" + i + "_" + j;
+                tuile = document.getElementById(case_id);
+                if (case_occupee(tuile)) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
+
+
+
+
 
 function valider_dame(coup) {
     valide = true;
