@@ -17,7 +17,6 @@ function valider_coup(couleurJoueur, coup) {
         return  false;
     }
 
-    console.log(couleurJoueur); 
     switch (coup.piece.split("_")[0]) {
         case "pion":
             return valider_pion(couleurJoueur, coup);
@@ -80,11 +79,9 @@ function valider_pion(couleurJoueur, coup) {
         destination = renverserCoup(destination);
     }
     let caseDepart = 2; 
-    let caseEnPassant = 5;
     let mouv= 1;
     let mouvDepart = 2;
-    console.log("destination[1] = " + destination[1]);
-    console.log("origine[1] = " + origine[1]);
+   
 
     if (est_prise(couleurJoueur, document.getElementById(coup.destination))) {
         console.log("est prise");
@@ -94,7 +91,8 @@ function valider_pion(couleurJoueur, coup) {
         }
     } else {
         console.log("pas prise");
-        //if en_passant
+        
+
         if (destination[2] - origine[2] != 0) {
             console.log("pas devant?");
             valide = false;
@@ -116,14 +114,37 @@ function valider_pion(couleurJoueur, coup) {
                 }
             }
         }
+        if (enPassant(origine, destination)) {
+            valide = true;
+        }
     }
-
-   
-
     return valide;
 }
 
+function enPassant(origine, destination) {
+    if (coups_joues != undefined && coups_joues.length >0) {
+        let coup_precedent = coups_joues[coups_joues.length - 1];
+        let coup_precedent_origine = coup_precedent.origine.split("_");
+        let coup_precedent_destination = coup_precedent.destination.split("_");
 
+        if (origine[1] != 5) {
+            return false;
+        }
+        if (destination[1] - origine[1] != 1 || Math.abs(destination[2] - origine[2]) != 1) {
+            return false;
+        }
+        if (Math.abs(coup_precedent_origine[2] - origine[2]) != 1) {
+            return false;
+        }
+
+        if (Math.abs(coup_precedent_origine[1] - coup_precedent_destination[1]) != 2) {
+            return false;
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
 
 function valider_cavalier(coup) {
     valide = false;
@@ -305,7 +326,9 @@ function valider_roi(coup) {
         valide = false;
     }
 
-
+    if (valider_roque(origine, destination)) {
+        valide = true;
+    }
     //cas d'exception: le roque: c'est un déplacement latéral de deux cases.
     //s'il roque, il faut vérifier les conditions suivantes
     //1. toutes les cases entre le roi et la tour sont libres
@@ -314,4 +337,8 @@ function valider_roi(coup) {
     //4. la tour n'a jamais bougé de cette partie. 
 
     return valide;
+}
+
+function valider_roque(origine, destination) {
+    
 }
