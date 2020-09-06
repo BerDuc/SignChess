@@ -29,3 +29,6 @@ function destination_tuile(destination) {
     return destination;
 }
 
+function enregistrer_coup(coup) {
+
+}
