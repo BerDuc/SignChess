@@ -49,6 +49,7 @@ function drop(ev) {
 		console.log("coup valide"); 
 		ev.target.appendChild(document.getElementById(data));
 		document.getElementById(data).value = ev.target.id;
+		coups_joues.push(coup); 
 		connection.invoke("SignalerCoup", partie_en_cours.id, coup).catch(function (err) {
 			return console.error(err.toString());
 		});

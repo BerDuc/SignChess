@@ -19,6 +19,8 @@ connection.on("GameOn", function (partie) {
 		new Joueur(partie.joueur1, partie.couleur_Joueur1),
 		new Joueur(partie.joueur2, couleur_inverse(partie.couleur_Joueur1))
 	);
+	coups_joues = []; 
+	console.log("coup_joues = " + coups_joues); 
 	setTablePartie();
 	creerGrille(8);
 	placerPieces();
@@ -34,6 +36,7 @@ connection.on("RemoveGame", function (game_id) {
 connection.on("ReceiveMessage", function (coup) {
 	//récupérer le coup - tuile de départ et tuile d'arrivée et le reproduire
 	deplacerPiece(coup);
+	coups_joues.push(coup); 
 });
 
 
