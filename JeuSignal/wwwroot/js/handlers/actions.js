@@ -1,7 +1,7 @@
 ﻿//gestion des parties: envoie
 
 document.getElementById("btnCreerPartie").addEventListener("click", function (event) {
-	var joueur = document.getElementById("nom_joueur").innerHTML;
+	let joueur = document.getElementById("nom_joueur").innerHTML;
 	connection.invoke("Create_Game", joueur).catch(function (err) {
 		console.log(err.toString());
 	});
@@ -9,8 +9,8 @@ document.getElementById("btnCreerPartie").addEventListener("click", function (ev
 });
 
 document.getElementById('btnJoindre').addEventListener("click", function (event) {
-	var user = document.getElementById("nom_joueur").innerHTML;
-	var partie = document.getElementById("liste_parties").value;
+	let user = document.getElementById("nom_joueur").innerHTML;
+	let partie = document.getElementById("liste_parties").value;
 	connection.invoke("Join_Game", partie, user).catch(function (err) {
 		return console.error(err.toString());
 	});
@@ -20,7 +20,7 @@ document.getElementById('btnJoindre').addEventListener("click", function (event)
 
 
 document.getElementById('btnUser').addEventListener("click", function (event) {
-	var nomJoueur = document.getElementById("txt_nom_joueur").value;
+	let nomJoueur = document.getElementById("txt_nom_joueur").value;
 	document.getElementById("nom_joueur").innerHTML = nomJoueur;
 	enable_buttons(["btnCreerPartie", "btnJoindre"]);
 	event.preventDefault();
