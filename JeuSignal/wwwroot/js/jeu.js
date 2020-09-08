@@ -10,8 +10,8 @@ document.getElementById("btnJoindre").disabled = true;
 //variable partie
 let partie_en_cours;
 let coups_joues;
-let joueur1;
-let joueur2; 
+//let joueur1;
+//let joueur2; 
 let tour; 
 
 //établir la connexion
