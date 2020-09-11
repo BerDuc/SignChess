@@ -10,8 +10,6 @@ document.getElementById("btnJoindre").disabled = true;
 //variable partie
 let partie_en_cours;
 let coups_joues;
-//let joueur1;
-//let joueur2; 
 let tour; 
 
 //établir la connexion
@@ -25,6 +23,22 @@ connection.start().then(function () {
 
 //gestion des parties: fonctions
 
+function create_partie_en_cours(partie) {
+	let ce_joueur = document.getElementById("nom_joueur").innerHTML; 
+	let joueur, adversaire;
+
+	if (partie.joueur1 == ce_joueur) {
+		joueur = new Joueur(partie.joueur1, partie.couleur_Joueur1);
+		adversaire = new Joueur(partie.joueur2, couleur_inverse(partie.couleur_Joueur1));
+	} else {
+		joueur = new Joueur(partie.joueur2, couleur_inverse(partie.couleur_Joueur1));
+		adversaire = new Joueur(partie.joueur1, partie.couleur_Joueur1);
+    }
+	partie_en_cours = new Partie(partie.id, joueur, adversaire); 
+}
+
+
+
 function removeGame(game_id) {
 	var liste = document.getElementById("liste_parties");
 	for (var i = 0; i < liste.length; i++) {
@@ -35,11 +49,11 @@ function removeGame(game_id) {
 }
 
 function setTablePartie() {
-	document.getElementById("joueur1_nom").innerHTML = partie_en_cours.joueur1.nom;
-	document.getElementById("joueur2_nom").innerHTML = partie_en_cours.joueur2.nom;
+	document.getElementById("joueur1_nom").innerHTML = partie_en_cours.joueur.nom;
+	document.getElementById("joueur2_nom").innerHTML = partie_en_cours.adversaire.nom;
 
-	document.getElementById("joueur1_couleur").innerHTML = partie_en_cours.joueur1.couleur;
-	document.getElementById("joueur2_couleur").innerHTML = partie_en_cours.joueur2.couleur;
+	document.getElementById("joueur1_couleur").innerHTML = partie_en_cours.joueur.couleur;
+	document.getElementById("joueur2_couleur").innerHTML = partie_en_cours.adversaire.couleur;
 }
 
 
