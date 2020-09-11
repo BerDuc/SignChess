@@ -2,8 +2,8 @@
 
     constructor(id, joueur1, joueur2) {
         this._id = id;
-        this._joueur1 = joueur1;
-        this._joueur2 = joueur2; 
+        this._joueur= joueur1;
+        this._adversaire = joueur2; 
         this._coups_joues = [];
     }
 
@@ -13,17 +13,17 @@
     set id(val) {
         this._id = val;
     }
-    get joueur1() {
-        return this._joueur1;
+    get joueur() {
+        return this._joueur;
     }
-    set joueur1(val) {
-        this._joueur1 = val;
+    set joueur(val) {
+        this._joueur = val;
     }
-    get joueur2() {
-        return this._joueur2;
+    get adversaire() {
+        return this._adversaire;
     }
-    set joueur2(val) {
-        this.joueur2 = val;
+    set adversaire(val) {
+        this._adversaire = val;
     }
     get coups_joues() {
         return this._coups_joues;
