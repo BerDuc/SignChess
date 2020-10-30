@@ -1,4 +1,17 @@
 ﻿
+function getRangeeDepartPion(couleur) {
+    if (couleur == "blanc") {
+        return 2;
+    }
+    return 7;
+}
+function getRangeeEnPassant(couleur) {
+    if (couleur == "blanc") {
+        return 5;
+    }
+    return 4;
+}
+
 
 function valider_coup(couleurJoueur, coup) {
     let couleurPiece = coup.piece.split("_")[1];
@@ -34,7 +47,7 @@ function valider_coup(couleurJoueur, coup) {
             return  valider_dame(coup);
             break;
         case "roi": 
-            return  valider_roi(coup);
+            return  valider_roi(couleurJoueur, coup);
             break;
         default:
             return  false;
@@ -94,7 +107,6 @@ function valider_pion(couleurJoueur, coup) {
         
 
         if (destination[2] - origine[2] != 0) {
-            console.log("pas devant?");
             valide = false;
         } else {
             if (origine[1] == caseDepart) {
@@ -316,7 +328,7 @@ function valider_dame(coup) {
     return valide;
 }
 
-function valider_roi(coup) {
+function valider_roi(couleurJoueur, coup) {
     valide = true;
     origine = coup.origine.split("_");
     destination = coup.destination.split("_");
@@ -326,19 +338,51 @@ function valider_roi(coup) {
         valide = false;
     }
 
-    if (valider_roque(origine, destination)) {
+    if (valider_roque(couleurJoueur, origine, destination)) {
         valide = true;
     }
-    //cas d'exception: le roque: c'est un déplacement latéral de deux cases.
-    //s'il roque, il faut vérifier les conditions suivantes
-    //1. toutes les cases entre le roi et la tour sont libres
-    //2. aucune case entre le roi et la tour n'est menacée
-    //3. le roi n'a jamais bougé de cette partie
-    //4. la tour n'a jamais bougé de cette partie. 
+   
 
     return valide;
 }
 
-function valider_roque(origine, destination) {
-    
+function valider_roque(couleurJoueur, origine, destination) {
+    console.log("valider_roque"); 
+    console.log("origine: " + JSON.stringify(origine) + "; destination: "
+        + JSON.stringify(destination));
+    if (partie_en_cours.joueur.roi_a_bouge) {
+        return false;
+    }
+    if (origine[2] - destination[2] == 2) {
+
+        if (couleurJoueur == "blanc") {
+            if (partie_en_cours.joueur.tour1_a_bouge) {
+                return false;
+            }
+        } else {
+            if (partie_en_cours.joueur.tour2_a_bouge) {
+                return false;
+            }
+        }
+
+    } else if (origine[2] - destination[2] == -2) {
+
+        if (couleurJoueur == "blanc") {
+            if (partie_en_cours.joueur.tour2_a_bouge) {
+                return false;
+            }
+        } else {
+            if (partie_en_cours.joueur.tour1_a_bouge) {
+                return false;
+            }
+        }
+    } else {
+        return false
+    }
 }
+ //cas d'exception: le roque: c'est un déplacement latéral de deux cases.
+    //s'il roque, il faut vérifier les conditions suivantes
+    //1. toutes les cases entre le roi et la tour sont libres
+    //2. aucune case entre le roi et la tour n'est menacée
+    //3. OK le roi n'a jamais bougé de cette partie OK
+    //4. la tour n'a jamais bougé de cette partie. 

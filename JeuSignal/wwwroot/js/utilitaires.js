@@ -13,14 +13,7 @@ function couleur_inverse(couleur) {
 }
 
 
-function get_joueur() {
-    ce_joueur = document.getElementById("nom_joueur").innerHTML;
-    if (partie_en_cours.joueur1.nom == ce_joueur) {
-        return partie_en_cours.joueur1;
-    } else {
-        return partie_en_cours.joueur2;
-    }
-}
+
 
 function destination_tuile(destination) {
     if (destination.split("_")[0] != "tuile") {
