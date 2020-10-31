@@ -358,7 +358,7 @@ function valider_roque(couleurJoueur, origine, destination) {
         return false;
     }
 
-    if (!verifier_trajectoire_tour(origine, destination){
+    if (!verifier_trajectoire_tour(origine, destination)){
         return false;
     }
 
