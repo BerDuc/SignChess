@@ -14,15 +14,15 @@ connection.on("PartieIndisponible", function (partie_id) {
 });
 
 connection.on("GameOn", function (partie) {
-	partie_en_cours = new Partie(
-		partie.id,
-		new Joueur(partie.joueur1, partie.couleur_Joueur1),
-		new Joueur(partie.joueur2, couleur_inverse(partie.couleur_Joueur1))
-	);
+	console.log("GameOn"); 
+	create_partie_en_cours(partie);
 	setTablePartie();
+	console.log("partie settée"); 
 	creerGrille(8);
 	placerPieces();
 });
+
+
 
 connection.on("RemoveGame", function (game_id) {
 	removeGame(game_id);
@@ -34,6 +34,7 @@ connection.on("RemoveGame", function (game_id) {
 connection.on("ReceiveMessage", function (coup) {
 	//récupérer le coup - tuile de départ et tuile d'arrivée et le reproduire
 	deplacerPiece(coup);
+	coups_joues.push(coup); 
 });
 
 

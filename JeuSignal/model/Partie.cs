@@ -28,9 +28,9 @@ namespace JeuSignal.model
             string couleur; 
             Random rd = new Random();
             if (rd.Next(1, 3) == 1)
-                couleur = "blancs";
+                couleur = "blanc";
             else
-                couleur = "noirs";
+                couleur = "noir";
             return couleur; 
         }
 
